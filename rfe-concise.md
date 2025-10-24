@@ -2,7 +2,7 @@
 
 **Feature Overview:**
 
-Hardware Profiles with Accelerator Type Awareness enables the platform to detect and expose specific GPU types (NVIDIA H200, A100, etc.) instead of treating all GPUs as generic resources. This solves a critical architectural blocker: model serving teams cannot integrate model catalog and validation metrics without knowing which hardware types are in hardware profiles, and the DT team cannot provide GPU recommendations without accelerator type information. The solution leverages existing NVIDIA annotations on OpenShift nodes for automatic detection.
+Hardware Profiles with Accelerator Type Awareness enables the platform to detect and expose specific GPU types (NVIDIA H200, A100, etc.) instead of treating all GPUs as generic resources. This solves a critical architectural blocker: model serving teams cannot integrate model catalog and validation metrics without knowing which hardware types are in hardware profiles, and Training cannot provide training estimation without accelerator type information. The solution leverages existing NVIDIA annotations on OpenShift nodes for automatic detection.
 
 **Goals:**
 
