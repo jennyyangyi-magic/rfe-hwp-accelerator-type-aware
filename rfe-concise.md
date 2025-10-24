@@ -14,29 +14,19 @@ AI-powered GPU recommendation models, real-time cost estimation, performance ben
 
 **Requirements:**
 
-1. **Model Serving: Performance-Based Hardware Recommendations [MVP]**: Given a model and use case (inference, fine-tuning), model catalog shall recommend hardware profiles to achieve service level objectives (throughput, latency, cost). Model catalog's performance insights (e.g., "llama-3-70b: 120 tokens/sec on H200, 75 tokens/sec on A100") shall inform recommendations, enabling users to select hardware based on their specific SLOs.
+- **Accelerator Type Awareness in Hardware Profiles [MVP]**: Hardware profiles shall be aware of and expose specific accelerator types (e.g., "NVIDIA H200 141GB", "NVIDIA A100 80GB") rather than treating all GPUs as generic resources. This enables external systems (model catalog, training estimators) to query accelerator metadata for hardware recommendations and time estimations.
 
-2. **Model Serving: Automatic Model-to-Hardware Matching [MVP]**: Hardware profiles shall expose accelerator metadata (GPU type, memory, architecture) enabling model catalog to programmatically determine compatible hardware profiles, eliminating manual administrator mapping of models to hardware.
+- **Enable Model Serving Hardware Recommendations [MVP]**: Hardware profiles shall expose sufficient accelerator metadata (GPU type, memory capacity, architecture) to enable model catalog to programmatically match models to compatible hardware profiles based on performance insights and service level objectives, eliminating manual administrator mapping.
 
-3. **Training: Time Estimation for Hardware Selection [MVP]**: When selecting hardware profiles for workbench/training, users shall see training time estimates for each option (e.g., "H200: ~2 hours, A100: ~5 hours, V100: ~18 hours") based on model characteristics and hardware capabilities, enabling informed hardware selection.
-
-4. **Training: Cost-Performance Trade-off Visibility [MVP]**: Users selecting training hardware shall see both time estimates and cost implications (e.g., "H200: 2 hours at $10.50 vs A100: 5 hours at $15.90"), enabling optimization for speed or cost based on priorities.
-
-5. **Accelerator Type Awareness in Hardware Profiles [MVP]**: Hardware profiles shall expose specific accelerator types (e.g., "NVIDIA H200", "NVIDIA A100 80GB") rather than generic "GPU", enabling both model serving and training use cases above.
-
-6. **Hardware Profile Discovery [MVP]**: Administrators shall discover cluster accelerator types and associate hardware profiles with them; users shall see specific accelerator types when selecting profiles (e.g., "Premium GPU (H200 141GB) - 4 available").
-
-7. **Workload Scheduling to Correct Accelerators [MVP]**: Workloads (serving, training, workbench) shall schedule on nodes with specified accelerator types without manual node selector configuration, preventing accelerator type mismatches.
-
-8. **Cost Attribution [MVP]**: Running workloads shall be annotated with actual accelerator type used (e.g., "nvidia-h200-141gb"), enabling accurate cost chargeback per team and audit trails.
-
-9. **Backward Compatibility [MVP]**: Existing hardware profiles without accelerator types shall continue functioning as generic GPU profiles without migration or breaking changes.
-
-10. **Performance Characteristics Query API [MVP]**: Hardware profiles shall expose accelerator performance characteristics queryable by external engines (model catalog, training estimators) with <100ms latency, supporting integration without hardcoded assumptions.
+- **Enable Training Time Estimation [MVP]**: Hardware profiles shall expose accelerator performance characteristics (GPU type, architecture, compute capabilities) to enable external training time estimation engines to calculate and present training duration estimates when users select hardware profiles for workbench or training jobs.
 
 **Done - Acceptance Criteria:**
 
-Model serving team can query hardware profile API and get accelerator metadata, enabling automatic model-to-hardware matching without admin intervention. DT team recommendation engine returns training time estimates for each GPU type. Platform admins use Node View UI to see all cluster nodes with detected GPU types, select nodes, and auto-create hardware profiles in under 5 minutes without manual node labeling. Data scientists see specific GPU types in spawn UI (e.g., "H200 141GB - 4 available") and workloads schedule correctly. Existing hardware profiles continue to work unchanged.
+- Model serving team can query hardware profile API and get accelerator metadata, enabling automatic model-to-hardware matching without admin intervention.
+- DT team recommendation engine returns training time estimates for each GPU type.
+- Platform admins use Node View UI to see all cluster nodes with detected GPU types, select nodes, and auto-create hardware profiles in under 5 minutes without manual node labeling.
+- Data scientists see specific GPU types in spawn UI (e.g., "H200 141GB - 4 available") and workloads schedule correctly.
+- Existing hardware profiles continue to work unchanged.
 
 **Use Cases - i.e. User Experience & Workflow:**
 
